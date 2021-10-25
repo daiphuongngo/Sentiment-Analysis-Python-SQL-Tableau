@@ -8,6 +8,7 @@
 
 - Retail
 
+- Consumer product
 
 ## Overview
 
