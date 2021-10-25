@@ -1,5 +1,14 @@
 # Sentiment Analysis for online products and their fan pages
 
+## Category:
+
+- E-commerce / E-selling
+
+- Application
+
+- Retail
+
+
 ## Overview
 
 Building a system for business insights & analysis using Natural Language Processing of customer dialogs & participating in Project Planning, Data Operations, Model Engineering, Machine Learning, Visualization while using at all production stages: 
