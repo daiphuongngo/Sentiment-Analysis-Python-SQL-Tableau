@@ -201,7 +201,7 @@ SELECT cui.intention_label, COUNT(cui.intention_label)
 FROM conversation_intention AS CUI 
 ORDER BY COUNT(cui.intention_label);
 ```
--- 9/ Top Entities
+### 9/ Top Entities
 ```
 SELECT ce.entities_label, COUNT(ce.entities_label), COUNT(ce.entities_label) / SUM(ce.entities_label) * 100 AS weightage
 FROM conversation_entities AS ce 
