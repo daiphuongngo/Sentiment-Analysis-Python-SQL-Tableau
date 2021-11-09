@@ -305,19 +305,33 @@ ORDER BY COUNT(cui.intention_label) DESC;
 
 ![](https://i.imgur.com/V5aSlLf.jpg)
 
-As per the ***Most Visted Fan Pages***, Fan Page 44 and Fan Page 27 played significant roles online as they had the most visits of over 800K visits. 
+Observing the ***Most Visted Fan Pages***, Fan Page 44 and Fan Page 27 played significant roles online as they had the most visits of over 800K visits. 
 
 According to the ***Interaction between Customers & Sales of Top 20 Fan Pages***, in the one hand, Fan Page 22 has a quite equal chats between Customers and Salespersons. In the other hand, Fan Page 44's Salespersons accounted for more chats than the Customers in all Conversations.
 
-Looking at the ***Top Fan Page contacted by Hour***, The top 2 visited Fan Pages by hour over the day are still Fan Page 44 and Fan Page 27. The 2 peak time that customers visited all Fan Pages the most were at 7 AM and 1 PM. This is probably because they were about leaving for work and having lunch break so they could have free time to visit and chat. The lowest points were at 10 AM (probably when they fully concentrated at work or being out for grocery or preparing lunch) and from 3 - 9 PM. The afternoon might be busy for them to finish the work as soon as possible, pick up kids from school, prepare for dinner, clean up after dinner, spend time with family in the evening, relax and chill before bed time from 10 PM onwards. Then, they might have some free time to visit and chat before sleepping.
+In relation to the ***Top Fan Page contacted by Hour***, The top 2 visited Fan Pages by hour over the day are still Fan Page 44 and Fan Page 27. The 2 peak time that customers visited all Fan Pages the most were at 7 AM and 1 PM. This is probably because they were about leaving for work and having lunch break so they could have free time to visit and chat. The lowest points were at 10 AM (probably when they fully concentrated at work or being out for grocery or preparing lunch) and from 3 - 9 PM. The afternoon might be busy for them to finish the work as soon as possible, pick up kids from school, prepare for dinner, clean up after dinner, spend time with family in the evening, relax and chill before bed time from 10 PM onwards. Then, they might have some free time to visit and chat before sleepping.
 
 Therefore, having an available Sales team to listen and talk to customers via Fan Page chat at those peak hours could be beneficial and informative for them and having the Sales team focus on other sales and marketing activities during low hours could be more efficient and effective for the company.
+
+### 2/ Customer
+
+![Dashboard - Customer](https://user-images.githubusercontent.com/70437668/140887847-03b787af-991a-40df-b7e3-0663d1de12cb.jpg)
+
+As stated by the ***Customer Chats by Hour***, this Line chart shows a similar trend with what we saw before. So it could strengthen the previously stated point as follows. The peak time for Customer chats was in the early morning before work or dropping off kids to school and during lunch break. The least active time was at the late morning, before noon and after lunch break. Their most active chatting time was in the early morning, during break. And their busiest time was at 10 AM and after 3 PM, and even in the whole evening.
+
+As maintained by the ***Customer Chats by Weekday***, the most likeable weekdays for customers to contact Fan Pages were Tuesday and Friday. The lowest point was on Thursday. This could be because after starting a new busy working week on Monday, they tended to be more engaging with Fan Pages for further contact. Thursday's moods could be quite intense at work to complete as many tasks as possible before coming to work on Friday. Friday is the last working day of the week so they could chill more and text the Fan Pages.
+
+As specified by the ***Top Customers contacting Fan Pages (Bar)***, to be more exact, Customer ID was added instead of / before Customer Name to make sure that the chart can avoid duplicated names from different Customers with the same name.
+
+In line with the ***Top Customer Name confirming transaction by Count of Intention (Stack Bar)***, filtered by confirmed transactions only, it shows the top customers purchasing products. The most loyal customer here is Tòng Thị Tươi Thúy. Others appear on the current screen should be well taken care of.
+
+In keeping with the ***Most Complained Customers (Stack Bar)***, this Bar chart covers all frequent high demanding customers with complaints in all shown issues. By showing their Customer IDs on the chart, we can find their Conversations to understand further why they complained.
 
 ### 3/ Intentions
 
 ![](https://i.imgur.com/GvZxanX.jpg)
 
-Accoring to the ***Top Intentions chart***, generally, the Top Intentions include yes confirmation, asking and providing customer information. Yes confirmation covers an agreeable answer from customer on different aspects, including confirmed transaction and other agreed terms. So, we might need to look further into Conversation content/details to know more about this value. In other charts, we will choose these values by group of asking, providing info and confirming, instead. Customers mainly talked about price, promo, their health issues and personal background, feedback after usage and confirmed transaction. The minority of chat intentions cover complaints and asking about product details, store addresses. 
+According to the ***Top Intentions chart***, generally, the Top Intentions include yes confirmation, asking and providing customer information. Yes confirmation covers an agreeable answer from customer on different aspects, including confirmed transaction and other agreed terms. So, we might need to look further into Conversation content/details to know more about this value. In other charts, we will choose these values by group of asking, providing info and confirming, instead. Customers mainly talked about price, promo, their health issues and personal background, feedback after usage and confirmed transaction. The minority of chat intentions cover complaints and asking about product details, store addresses. 
 
 As per the ***Top Intentions by Hour***, this shows a similar trend as above so we will look into the next chart breaking down into different significant Intentions. It proves that Customers really cared about a product guarantee of efficacy, their personal health issues/background and current/used diet products to compare with our offers. They also tend to provide their comments and feelings after using oru products and their expectations.
 
