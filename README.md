@@ -307,7 +307,7 @@ ORDER BY COUNT(cui.intention_label) DESC;
 
 Observing the ***Most Visted Fan Pages***, Fan Page 44 and Fan Page 27 played significant roles online as they had the most visits of over 800K visits. 
 
-According to the ***Interaction between Customers & Sales of Top 20 Fan Pages***, in the one hand, Fan Page 22 has a quite equal chats between Customers and Salespersons. In the other hand, Fan Page 44's Salespersons accounted for more chats than the Customers in all Conversations.
+As drawn up by the ***Interaction between Customers & Sales of Top 20 Fan Pages***, in the one hand, Fan Page 22 has a quite equal chats between Customers and Salespersons. In the other hand, Fan Page 44's Salespersons accounted for more chats than the Customers in all Conversations.
 
 In relation to the ***Top Fan Page contacted by Hour***, The top 2 visited Fan Pages by hour over the day are still Fan Page 44 and Fan Page 27. The 2 peak time that customers visited all Fan Pages the most were at 7 AM and 1 PM. This is probably because they were about leaving for work and having lunch break so they could have free time to visit and chat. The lowest points were at 10 AM (probably when they fully concentrated at work or being out for grocery or preparing lunch) and from 3 - 9 PM. The afternoon might be busy for them to finish the work as soon as possible, pick up kids from school, prepare for dinner, clean up after dinner, spend time with family in the evening, relax and chill before bed time from 10 PM onwards. Then, they might have some free time to visit and chat before sleepping.
 
