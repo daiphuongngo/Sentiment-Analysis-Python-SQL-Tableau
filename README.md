@@ -305,7 +305,7 @@ ORDER BY COUNT(cui.intention_label) DESC;
 
 ![](https://i.imgur.com/V5aSlLf.jpg)
 
-Observing the ***Most Visted Fan Pages***, Fan Page 44 and Fan Page 27 played significant roles online as they had the most visits of over 800K visits. 
+Observing the ***`Most Visted Fan Pages`***, Fan Page 44 and Fan Page 27 played significant roles online as they had the most visits of over 800K visits. 
 
 As drawn up by the ***Interaction between Customers & Sales of Top 20 Fan Pages***, in the one hand, Fan Page 22 has a quite equal chats between Customers and Salespersons. In the other hand, Fan Page 44's Salespersons accounted for more chats than the Customers in all Conversations.
 
