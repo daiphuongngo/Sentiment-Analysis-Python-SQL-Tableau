@@ -329,7 +329,7 @@ In keeping with the **`Most Complained Customers (Stack Bar)`**, this Bar chart 
 
 ### 3/ Intentions
 
-![](https://i.imgur.com/GvZxanX.jpg)
+![Dashboard - Intention](https://user-images.githubusercontent.com/70437668/141034889-7522ed08-3e50-4238-a6f5-a248edcb063f.jpg)
 
 According to the **`Top Intentions chart`**, generally, the Top Intentions include yes confirmation, asking and providing customer information. Yes confirmation covers an agreeable answer from customer on different aspects, including confirmed transaction and other agreed terms. So, we might need to look further into Conversation content/details to know more about this value. In other charts, we will choose these values by group of asking, providing info and confirming, instead. Customers mainly talked about price, promo, their health issues and personal background, feedback after usage and confirmed transaction. The minority of chat intentions cover complaints and asking about product details, store addresses. 
 
@@ -340,3 +340,21 @@ In terms of the **`Top 10 Intentions in 2019 and 2020`**, Customers seemed to ta
 Looking at the **`Confirmation over Complaint by Fan Page Name`**, the Top Fan Pages received Customer Intentions regarding yes confirmation, confirmed transactions. However, complaints about disturbing their social network from the Sales team's side still existed among Fan Pages, notably the Fan Page 27. The Sales team might have contacted at wrong times when they were busy and might have been approaching customers too often unnecessarily. The approach method should be reconsidered to avoid unwanted complaints causing negative customer experiences.
 
 Moving on to the **`Count of Intention (Complaint) by Fan Page, Intention`**, Complaint about disturbance seemed to be the most among all kinds of complaints. Even the top 2 Fan Pages had the most complaints about disturbance. Fan Page 27's got the highest amount of disturbance complaints which was even double their received complaints about price.
+
+### 4/ Entities
+
+![Dashboard - Entities](https://user-images.githubusercontent.com/70437668/141035408-4ce73843-e9f6-44d4-9a82-a82996925ce7.jpg)
+
+As per the **`Top Entities`**, it sketches a logical trend of Customer Intentions about their health issues and background. The first entity was about their Weight. That is the ultimate reason that they approached our Fan Pages. Secondly, they were concerned about how long they could see a result or a gradual efficacy. Thirdly, they mentioned a lot about their sickness before, during and after using our products. Probably, they were taking side effects from products into considerations. Then, they also compared our products with others. A group of customers also paid attention to their pregnancy and informed with Sales teams. Sales team should be very aware of their health and updated feedback on constant basis to make sure of customer satisfaction and release doubts and concerns when using our products to nuild long-lasting trust.
+
+Following the **`Weightage of Top Entities (Pie)`**, it represent a quite equal percentage among the top 3 Entities, including weight, duration, health issues/sickness.
+
+Regarding the **`Entities by 2019`** and **`Entities by 2020`**, in both years, Weight, Duration and Health Issues are still the most significant Entities in Customer chats.
+
+In November 2019, there was a surge of customers providing their information for asking and purchasing. They also mentioned about, but not too often, their marriage status/pregnancy, products, heights and names. Then there was a downturn of all entities in December. This might be because they were saving to spend on Christamas and New Year purposes.
+
+In 2020, overall, the trend fluctuated a lot constantly through the first year of the COVID-19 pandemic. The trend slightly mounted up for several most important mentioned entities from January to February. And then it dropped down in March and surged to the peak of the year in April. This might be because they were saving after Lunar New Year a bit before spending more on healthy and diet products after receiving a grand bonus at work at the end of each year if they completed a round full woking year. Another reason might be that the VN government had managed to control the pandemic succesfully at the first stage so customers might be willing to spend on our products besides their casual needs.
+
+However, the trend plummeted significantly from April until the end of June. This aligned with the new order of lockdown from the VN government in the whole April as VN had stepped in the first wave of the pandemic. After April, customers seemed to spend less on our products but their basic daily needs instead. We can see a drop in consumer demand during these months. 
+
+The demand very slight improved in July but in late July, the VN government announced the second wave, mainly in Da Nang with unknown roots of transmission. This might have affected customer demand for diet products but basic groceries. This second wave had been lasting until the end of 2020 due to shortage of Vaccines for a better pandemic control and economic as well as customer demand's boost.
