@@ -144,6 +144,7 @@ INNER JOIN conversation AS c
 ON ci.conversation_id = c.group_id
 INNER JOIN customer AS cus 
 ON c.cus_id = cus.cus_id
+GROUP BY cus.cus_
 ORDER BY SUM(ci.customer_count)
 LIMIT 50;
 ```
