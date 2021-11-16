@@ -363,3 +363,12 @@ The demand very slight improved in July but in late July, the VN government anno
 ### 5/ Confirmed vs Not Confirmed
 
 ![Dashboard - Confirmed vs Not Confirmed Transaction](https://user-images.githubusercontent.com/70437668/141924414-c6dc20ff-2257-4a53-bd16-337c63a57f5b.jpg)
+
+First, looking at the ``Confirmed vs Not Confirmed Ratio``, overall, Confirmed Transaction gained slightly more than 10% of all Intentions through all Fan Pages.
+
+Then, I have visualized the ``Top 10 Customers with most Confirmed Transactions by Fan Page``. Here users can choose a certain Fan Page to see top high demanding customers by each Page to focus on their future purchases. 
+
+Observing the ``Confirmed vs Not Confirmed Ratio by Customer ID``, the Customer ID ** ** features the Top Customer among all Customers through all Fan Pages, not only on **Fan Page 27**.
+
+Moving on to the ``Confirmed vs Not Confirmed Ratio by Fan Page``, **Fan Page 27** and **Fan Page 44** obtained the most Intentions of Confirming Transactions by 14.11% and 10.23%, ranking 1st and 2nd  among all Fan Pages, respectively. 
+
