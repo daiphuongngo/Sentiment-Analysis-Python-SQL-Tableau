@@ -150,7 +150,7 @@ LIMIT 50;
 ```
 ### 4/ Customer Chats by Hour
 ```
-SELECT cus.cus_name, HOUR(ci.start_time), COUNT(ci.customer_count) 
+SELECT HOUR(ci.start_time), COUNT(ci.customer_count) 
 FROM conversation_information AS ci 
 INNER JOIN conversation AS c 
 ON ci.conversation_id = c.group_id
