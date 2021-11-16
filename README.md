@@ -359,3 +359,7 @@ In 2020, overall, the trend fluctuated a lot constantly through the first year o
 However, the trend plummeted significantly from April until the end of June. This aligned with the new order of lockdown from the VN government in the whole April as VN had stepped in the first wave of the pandemic. After April, customers seemed to spend less on our products but their basic daily needs instead. We can see a drop in consumer demand during these months. 
 
 The demand very slight improved in July but in late July, the VN government announced the second wave, mainly in Da Nang with unknown roots of transmission. This might have affected customer demand for diet products but basic groceries. This second wave had been lasting until the end of 2020 due to shortage of Vaccines for a better pandemic control and economic as well as customer demand's boost.
+
+### 5/ Confirmed vs Not Confirmed
+
+![Dashboard - Confirmed vs Not Confirmed Transaction](https://user-images.githubusercontent.com/70437668/141924414-c6dc20ff-2257-4a53-bd16-337c63a57f5b.jpg)
