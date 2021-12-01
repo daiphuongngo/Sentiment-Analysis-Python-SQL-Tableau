@@ -114,6 +114,98 @@ VR Flask:
 pip install flask sqlalchemy flask-sqlalchemy
 ```
 
+## Creating 2 CSV files from dataset by Batch Processing
+
+As I already have 4 other CSV files from my previous EDA notebooks, including Conversation, Coversation_Information, Customer and Fan Page, now I will generate 2 more CSV files: Intention and Entities from the Conversation filtered with only Customer as Sender.
+
+### 1/ Import libraries
+```
+import pandas as pd
+import numpy as np
+import csv
+import requests
+import json
+from tqdm import tqdm
+```
+
+### 2/ Load CSV file of Customer Filtered Conversation
+```
+df_customer_filtered_Conversation = pd.read_csv("C:\Programming\CustomerIntention\src\data\customer_filtered_Conversation.csv", encoding = 'utf-8') 
+```
+
+### 3/ Prepare to insert all rows from Conversation to CSV files
+```
+object_length = df_customer_filtered_Conversation.shape[0]
+object_ids = df_customer_filtered_Conversation['Coversation_ID'].values[:object_length] 
+object_messages = df_customer_filtered_Conversation['Message'].values[:object_length] 
+```
+
+### 4/ Create 7 new lists for the new 2 CSV files: Conversation Intention & Entities
+The 6 new lists contain Entity, Entity Score, Entity Word, Conversation ID, Intention Label, Intention Score of the Customer Intention table
+```
+conversation_intention_conversation_id = []
+conversation_intention_label = []
+conversation_intention_score = []
+
+conversation_entities_conversation_id = []
+conversation_entity = []
+conversation_entity_score = []
+conversation_entity_word = []
+```
+
+### 5/ Batch Processing: Generate 500 responses per batch from API
+```
+import requests
+import json
+
+url = 'http://nni.cot.ai:19721/query'
+
+my_object = []
+for i, (id, m) in tqdm(enumerate(zip(object_ids, object_messages)), total = len(object_ids)): 
+    temp = {
+        "reference_id": int(id),
+        "text": m
+    }
+    my_object.append(temp)
+    if (i+1) % 500 == 0 or i == len(object_ids) - 1: # 2 cases: divisible (to get batches of 500 rows) or last iteration (the last batch with less than 500 rows)
+        response = requests.post(url, json = my_object)
+        my_object = []        
+        for item in response.json(): # loop through each result in the my_object batch of 1000 rows
+            #print(item)
+
+            # Intention
+            conversation_intention_conversation_id.append(item['reference_id'])
+            # Append the reference_id of the chat line, the customer's most possible intention (intent), the customer's intention highest score
+            conversation_intention_label.append(item['intent'][0]['label'])
+            conversation_intention_score.append(item['intent'][0]['score'])     
+
+            # Entities
+            for ent in item['entities']: # An empty entity will be ignored and moved on
+                conversation_entities_conversation_id.append(item['reference_id'])
+                conversation_entity.append(ent['entity']) # get all entities so they wiil have duplicate ref_id. That's why they must have Conversation Entities IDs
+                conversation_entity_score.append(ent['score']) 
+                conversation_entity_word.append(ent['word'])
+```
+
+### 6/ Plug all 7 lists into the Conversation Intention & Entities's data frames
+```
+df_Conversation_Entities = pd.DataFrame(np.column_stack([conversation_intention_conversation_id, conversation_entity, conversation_entity_score, conversation_entity_word]), 
+                               columns=['Conversation_ID', 'Conversation_Entity', 'Conversation_Entity_Score', 'Conversation_Entity_Word'])
+```
+
+```
+df_Conversation_Intention = pd.DataFrame(np.column_stack([conversation_intention_conversation_id, conversation_intention_label, conversation_intention_score]), 
+                               columns=['Conversation_ID', 'Intention_Label', 'Intention_Score'])
+```
+
+### 7/ Save the Conversation Intention & Entities for Visualization in Tableau
+```
+df_Conversation_Intention.to_csv('C:\Programming\CustomerIntention\src\data\Conversation_Intention.csv', encoding='utf-8')
+```
+
+```df_Conversation_Entities.to_csv('C:\Programming\CustomerIntention\src\data\Conversation_Entities.csv', encoding='utf-8')
+```
+
 ## Analysis in SQL:
 
 ### 1/ Count Fan Page name
