@@ -114,6 +114,101 @@ VR Flask:
 pip install flask sqlalchemy flask-sqlalchemy
 ```
 
+# *`Database Administering`*:
+
+## Design & map SQL Alchemy's 6 tables with MySQL relation database 
+
+### 1/ Import libraries
+```
+import pandas as pd
+import numpy as np
+import csv
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, func, Boolean, MetaData, Table, Float
+from sqlalchemy.dialects.mysql import TINYINT
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.declarative import declarative_base
+import requests
+import json
+from tqdm import tqdm
+```
+
+### 2/ Create an engine
+```
+from sqlalchemy import create_engine
+engine = create_engine('mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention', echo=True) 
+```
+
+### 3/ Design and map SQL Alchemy's tables with TablePlus relational database's tables
+```
+Base = declarative_base() 
+metadata = MetaData(bind=engine) 
+class Conversation(Base):
+    __tablename__ = 'conversation'
+    ID = Column(Integer, primary_key=True) 
+    Fanpage = Column(Integer) # Fan_Page_ID
+    PSID = Column(Integer) # Cus_ID or Customer_ID
+    FanpageName = Column(String()) 
+    CusName = Column(String()) 
+    Message = Column(String())
+    Order = Column(Integer) 
+    Sender = Column(Integer) 
+    
+class Conversation_Information(Base):
+    __tablename__ = 'Conversation_Information' 
+    ID = Column(Integer, primary_key=True)
+    Conversation_ID = Column(Integer)
+    CustomerCount = Column(Integer)
+    SalesCount = Column(Integer)
+    StartTime = Column(
+        DateTime,
+        default=func.now())
+    EndTime = Column(
+        DateTime,
+        default=func.now())
+    
+class Customer(Base):
+    __tablename__ = 'Customer'
+    ID = Column(Integer, primary_key=True)
+    CusName = Column(String())
+    CusID = Column(Integer)
+    
+class Fan_Page(Base):
+    __tablename__ = 'Fan_Page'
+    ID = Column(Integer, primary_key=True)
+    FanpageName = Column(String())
+    FanpageID = Column(Integer)
+    
+class Conversation_Intention(Base):
+    __tablename__ = Table('conversation_intention', Base.metadata,
+                    autoload=True, autoload_with=engine) # metadata goes from database 
+    # Database (TablePlus) will regularize PK, Python won't dp so (primary_key=True) since this is for mapping tables only. 
+    # If Python is used for creating tables, we will need ID as a PK so 'primary_key=True' will be included.
+    id = Column(Integer, primary_key=True) 
+    conversation_id = Column(Integer)
+    reference_id = Column(Integer)
+    intention = Column(String())
+    score = Column(Float) # must have data type, Integer doesn't need to have Integer(8)
+    
+class Conversation_Entities(Base):
+    __tablename__ = Table('conversation_entities', Base.metadata,
+                    autoload=True, autoload_with=engine) # metadata goes from database 
+    # Database (TablePlus) will regularize PK, Python won't dp so (primary_key=True) since this is for mapping tables only. 
+    # If Python is used for creating tables, we will need ID as a PK so 'primary_key=True' will be included.
+    id = Column(Integer, primary_key=True) 
+    conversation_id = Column(Integer)
+    conversation_entity = Column(Integer)
+    conversation_entity_score = Column(Float)
+    conversation_entity_string = Column(String()) # must have data type, Integer doesn't need to have Integer(8)
+    
+# Mapping classes with tables in TablePlus's databases
+# Should not create tables by Python but TablePlus
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind=engine) 
+session = Session() # object
+```
+
+# *`Data Engineering`*:
+
 ## Creating 2 CSV files from dataset by Batch Processing
 
 As I already have 4 other CSV files from my previous EDA notebooks, including Conversation, Coversation_Information, Customer and Fan Page, now I will generate 2 more CSV files: Intention and Entities from the Conversation filtered with only Customer as Sender.
@@ -207,96 +302,7 @@ df_Conversation_Intention.to_csv('C:\Programming\CustomerIntention\src\data\Conv
 df_Conversation_Entities.to_csv('C:\Programming\CustomerIntention\src\data\Conversation_Entities.csv', encoding='utf-8')
 ```
 
-## Design & map SQL Alchemy's 6 tables with MySQL relation database 
-
-### 1/ Import libraries
-```
-import pandas as pd
-import numpy as np
-import csv
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, func, Boolean, MetaData, Table, Float
-from sqlalchemy.dialects.mysql import TINYINT
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
-import requests
-import json
-from tqdm import tqdm
-```
-
-### 2/ Create an engine
-```
-from sqlalchemy import create_engine
-engine = create_engine('mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention', echo=True) 
-```
-
-### 3/ Design and map SQL Alchemy's tables with TablePlus relational database's tables
-```
-Base = declarative_base() 
-metadata = MetaData(bind=engine) 
-class Conversation(Base):
-    __tablename__ = 'conversation'
-    ID = Column(Integer, primary_key=True) 
-    Fanpage = Column(Integer) # Fan_Page_ID
-    PSID = Column(Integer) # Cus_ID or Customer_ID
-    FanpageName = Column(String()) 
-    CusName = Column(String()) 
-    Message = Column(String())
-    Order = Column(Integer) 
-    Sender = Column(Integer) 
-    
-class Conversation_Information(Base):
-    __tablename__ = 'Conversation_Information' 
-    ID = Column(Integer, primary_key=True)
-    Conversation_ID = Column(Integer)
-    CustomerCount = Column(Integer)
-    SalesCount = Column(Integer)
-    StartTime = Column(
-        DateTime,
-        default=func.now())
-    EndTime = Column(
-        DateTime,
-        default=func.now())
-    
-class Customer(Base):
-    __tablename__ = 'Customer'
-    ID = Column(Integer, primary_key=True)
-    CusName = Column(String())
-    CusID = Column(Integer)
-    
-class Fan_Page(Base):
-    __tablename__ = 'Fan_Page'
-    ID = Column(Integer, primary_key=True)
-    FanpageName = Column(String())
-    FanpageID = Column(Integer)
-    
-class Conversation_Intention(Base):
-    __tablename__ = Table('conversation_intention', Base.metadata,
-                    autoload=True, autoload_with=engine) # metadata goes from database 
-    # Database (TablePlus) will regularize PK, Python won't dp so (primary_key=True) since this is for mapping tables only. 
-    # If Python is used for creating tables, we will need ID as a PK so 'primary_key=True' will be included.
-    id = Column(Integer, primary_key=True) 
-    conversation_id = Column(Integer)
-    reference_id = Column(Integer)
-    intention = Column(String())
-    score = Column(Float) # must have data type, Integer doesn't need to have Integer(8)
-    
-class Conversation_Entities(Base):
-    __tablename__ = Table('conversation_entities', Base.metadata,
-                    autoload=True, autoload_with=engine) # metadata goes from database 
-    # Database (TablePlus) will regularize PK, Python won't dp so (primary_key=True) since this is for mapping tables only. 
-    # If Python is used for creating tables, we will need ID as a PK so 'primary_key=True' will be included.
-    id = Column(Integer, primary_key=True) 
-    conversation_id = Column(Integer)
-    conversation_entity = Column(Integer)
-    conversation_entity_score = Column(Float)
-    conversation_entity_string = Column(String()) # must have data type, Integer doesn't need to have Integer(8)
-    
-# Mapping classes with tables in TablePlus's databases
-# Should not create tables by Python but TablePlus
-from sqlalchemy.orm import sessionmaker
-Session = sessionmaker(bind=engine) 
-session = Session() # object
-```
+# *`Data Analyst`*:
 
 ## Analysis in SQL:
 
