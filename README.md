@@ -114,7 +114,7 @@ VR Flask:
 pip install flask sqlalchemy flask-sqlalchemy
 ```
 
-# *`Database Administering`*:
+# **`Database Administering`**:
 
 ## Design & map SQL Alchemy's 6 tables with MySQL relation database 
 
@@ -207,7 +207,7 @@ Session = sessionmaker(bind=engine)
 session = Session() # object
 ```
 
-# *`Data Engineering`*:
+# **`Data Engineering`**:
 
 ## Creating 2 CSV files from dataset by Batch Processing
 
@@ -302,7 +302,7 @@ df_Conversation_Intention.to_csv('C:\Programming\CustomerIntention\src\data\Conv
 df_Conversation_Entities.to_csv('C:\Programming\CustomerIntention\src\data\Conversation_Entities.csv', encoding='utf-8')
 ```
 
-# *`Data Analyst`*:
+# **`Data Analyst`**:
 
 ## Analysis in SQL:
 
