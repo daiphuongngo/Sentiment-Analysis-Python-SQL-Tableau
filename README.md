@@ -509,6 +509,8 @@ ORDER BY COUNT(cui.intention_label) DESC;
 
 ### 1/ Fan Page:
 
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardFanPages/DashboardFanPage
+
 ![](https://i.imgur.com/V5aSlLf.jpg)
 
 Observing the **`Most Visted Fan Pages`**, *`Fan Page 44`* and *`Fan Page 27`* played significant roles online as they had the most visits of over 800K visits. 
