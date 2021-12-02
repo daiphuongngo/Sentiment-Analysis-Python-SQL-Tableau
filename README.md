@@ -567,6 +567,8 @@ The demand very slight improved in July but in late July, the VN government anno
 
 ### 5/ Confirmed vs Not Confirmed
 
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-Dashboard-ConfirmedvsNotConfirmedTransaction/Dashboard-ConfirmedvsNotConfirmedTransaction
+
 ![Dashboard - Confirmed vs Not Confirmed Transaction](https://user-images.githubusercontent.com/70437668/141924414-c6dc20ff-2257-4a53-bd16-337c63a57f5b.jpg)
 
 First, looking at the ``Confirmed vs Not Confirmed Ratio``, overall, Confirmed Transaction gained slightly more than *`10%`* of all Intentions through all Fan Pages.
