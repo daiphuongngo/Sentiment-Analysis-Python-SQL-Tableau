@@ -553,6 +553,8 @@ Moving on to the **`Count of Intention (Complaint) by Fan Page, Intention`**, *`
 
 ### 4/ Entities
 
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardEntities/DashboardEntities?publish=yes
+
 ![Dashboard - Entities](https://user-images.githubusercontent.com/70437668/141035408-4ce73843-e9f6-44d4-9a82-a82996925ce7.jpg)
 
 As per the **`Top Entities`**, it sketches a logical trend of Customer Intentions about their health issues and background. The first entity was about their *`Poids`*. That is the ultimate reason that they approached our Fan Pages. Secondly, they were concerned about how long they could see a result or a *`gradual efficacy`*. Thirdly, they mentioned a lot about their *`sickness`* before, during and after using our products. Probably, they were taking side effects from products into considerations. Then, they also compared the offered products with *`autre produits`* from competitors. A group of customers also paid attention to their *`grossesse`* and informed with Sales teams. Sales team should be very aware of their *`problème de santé`* and updated feedback on constant basis to make sure of customer satisfaction and release doubts and concerns when using our products to build long-lasting trust.
