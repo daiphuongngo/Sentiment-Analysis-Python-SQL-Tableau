@@ -523,6 +523,8 @@ Therefore, having an available Sales team to listen and talk to customers via Fa
 
 ### 2/ Customer
 
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardCustomers/DashboardCustomer?publish=yes
+
 ![Dashboard - Customer](https://user-images.githubusercontent.com/70437668/140887847-03b787af-991a-40df-b7e3-0663d1de12cb.jpg)
 
 As stated by the **`Customer Chats by Hour`**, this Line chart shows a similar trend with what we saw before. So it could strengthen the previously stated point as follows. The peak time for Customer chats was in the early morning before work or dropping off kids to school and during lunch break. The least active time was *`in the late morning, before noon and after lunch break`*. Their most active chatting time was in the *`early morning, during break`*. And their busiest time was at 10 AM and after 3 PM, and even in the whole evening.
