@@ -249,6 +249,21 @@ conversation_entity_word = []
 ```
 
 ### 5/ Batch Processing: Generate 500 responses per batch from API
+
+Here are advantages why I split the dataset into batches to run the job more effienctly:
+
+- Starts a pool of compute VMs for you.
+
+- Installs applications and staging data.
+
+- Runs jobs with as many tasks as I have.
+
+- Identifies failures.
+
+- Requeues work.
+
+- Scales down the pool as work completes.
+
 ```
 import requests
 import json
