@@ -539,6 +539,8 @@ In keeping with the **`Most Complained Customers (Stack Bar)`**, this Bar chart 
 
 ### 3/ Intentions
 
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardIntention/DashboardIntention
+
 ![Dashboard - Intention](https://user-images.githubusercontent.com/70437668/141034889-7522ed08-3e50-4238-a6f5-a248edcb063f.jpg)
 
 According to the **`Top Intentions chart`**, generally, the Top Intentions include *`yes confirmation, asking and providing customer information`*. Yes confirmation covers an agreeable answer from customer on different aspects, including confirmed transaction and other agreed terms. So, we might need to look further into Conversation content/details to know more about this value. In other charts, we will choose these values by group of asking, providing info and confirming, instead. Customers mainly talked about *`price, promo, their health issues and personal background, feedback after usage and confirmed transaction`*. The minority of chat intentions cover complaints and asking about product details, store addresses. 
@@ -553,7 +555,7 @@ Moving on to the **`Count of Intention (Complaint) by Fan Page, Intention`**, *`
 
 ### 4/ Entities
 
-https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardEntities/DashboardEntities?publish=yes
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardEntities/DashboardEntities
 
 ![Dashboard - Entities](https://user-images.githubusercontent.com/70437668/141035408-4ce73843-e9f6-44d4-9a82-a82996925ce7.jpg)
 
