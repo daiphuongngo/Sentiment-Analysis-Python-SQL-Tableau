@@ -590,3 +590,5 @@ Moving on to the ``Confirmed vs Not Confirmed Ratio by Fan Page``, *`Fan Page 27
 ### 6/ Distribution of Intention Groups by Fan Pages, Intention Labels
 
 https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-Dashboard-DistributionofIntentionGroupsbyFanPagesIntentionLabels/Dashboard-DistributionofIntentionGroupsbyFanPagesIntentionLabels
+
+![Dashboard - Distribution of Intention Groups by Fan Pages, Intention Labels](https://user-images.githubusercontent.com/70437668/144695895-faa1bf57-3279-4d21-8710-287e22291785.jpg)
