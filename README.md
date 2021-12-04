@@ -587,3 +587,6 @@ Observing the ``Confirmed vs Not Confirmed Ratio by Customer ID``, the Customer 
 
 Moving on to the ``Confirmed vs Not Confirmed Ratio by Fan Page``, *`Fan Page 27`* and *`Fan Page 44`* obtained the most Intentions of Confirming Transactions by 14.11% and 10.23%, ranking 1st and 2nd  among all Fan Pages, respectively. 
 
+### 6/ Distribution of Intention Groups by Fan Pages, Intention Labels
+
+https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-Dashboard-DistributionofIntentionGroupsbyFanPagesIntentionLabels/Dashboard-DistributionofIntentionGroupsbyFanPagesIntentionLabels
