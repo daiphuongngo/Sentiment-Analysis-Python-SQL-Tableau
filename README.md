@@ -592,3 +592,7 @@ Moving on to the ``Confirmed vs Not Confirmed Ratio by Fan Page``, *`Fan Page 27
 https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-Dashboard-DistributionofIntentionGroupsbyFanPagesIntentionLabels/Dashboard-DistributionofIntentionGroupsbyFanPagesIntentionLabels
 
 ![Dashboard - Distribution of Intention Groups by Fan Pages, Intention Labels](https://user-images.githubusercontent.com/70437668/144695895-faa1bf57-3279-4d21-8710-287e22291785.jpg)
+
+As shown on the ``Count of Intentional Labels by Fan Pages, Intention Groups`` and ``Radar Chart - Intention Group by Fan Pages``, *`Fan Page 27`* clearly played the most significant and active role among Fan Pages with the highest Count of Intention Labels by Groups. It also led the 1st rank in the *Intention - Confirmer la transaction*, which is the most important Intention we should look at to know which Fan Pages got the most confirmed transactions. *`Donner du feedback`* also dominated the most Intentions Labels by Count but this Intention is not as impactful as the *`Intention - Confirmer la transaction`* in terms of Transaction. 
+
+Regarding the ``Count of Intention Labels by Intention groups, Intention labels``, *`Transaction - Acheter (aujourd'hui)`* is an approximate threefold covering of *`Transaction - Recevoir un autre jour`*, 47.5K versus 15.9K, respectively.
