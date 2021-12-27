@@ -341,9 +341,9 @@ df_Conversation_Entities.to_csv('C:\Programming\CustomerIntention\src\data\Conve
 
 # **`Data Modelling:`**
 
-The CREATE INDEX statement is used to create indexes in tables.
+The CREATE INDEX statement is used to create indexes in tables. Indexes are used to retrieve data from the database more quickly than otherwise. The users cannot see the indexes in the database, namely in MySQL in this project case, they are just used to speed up searches/queries.
 
-Indexes are used to retrieve data from the database more quickly than otherwise. The users cannot see the indexes in the database, namely in MySQL in this project case, they are just used to speed up searches/queries.
+The benefit of analyzing the metadata is that we can clearly identify data inconsistences with our dataset.
 
 ```
 CREATE TABLE `conversation` (
