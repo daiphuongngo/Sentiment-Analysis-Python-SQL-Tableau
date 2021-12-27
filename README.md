@@ -48,6 +48,10 @@ Tracking customer & sales activites
 
 - Conducting Predictive Analysis to predict future trend based on timeline from Tableau's Machine Learning, Prescriptive Analysis to determine which actions should be taken to achieve a goal or target (this may require more business numerical columns provided by the stakeholders to execute), Cognitive Analysis to learn what might happen if circumstances change and determine how we might handle these situations.
 
+- Creating the dashed horizontal line denoting a certain percentile of daily sales for the period shown
+
+- Creating a reference line to show which customers are above the median purchases and employees are above the median sales target (if this variable is provided later) by making a percentile line by using the measure and set the percentile to an expected percentage.
+
 ## Dataset:
 
 `Conversation:`
