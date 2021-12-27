@@ -22,6 +22,22 @@ Building a system for business insights & analysis using Natural Language Proces
 
 -	Tableau (visualize refined datasets for insights of customer sentiment), Docker (run & manage applications), 
 
+## Targets & Achievements:
+
+An online retail business should be able to use their vast amounts of data and information in such a way that impacts the business, including:
+
+Tracking customer & sales activites 
+
+- Identifying purchase habits
+
+- Detecting user trends and patterns
+
+- Recommending purchases
+
+- Determining price optimizations
+
+- Identifying potential & complaining customers
+
 ## Dataset:
 
 `Conversation:`
