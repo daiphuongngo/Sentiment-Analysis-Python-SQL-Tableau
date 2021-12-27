@@ -38,6 +38,16 @@ Tracking customer & sales activites
 
 - Identifying potential & complaining customers
 
+## Room for enhancement:
+
+- Applying LODs (Level of Details) in Tableau to the analysis
+
+- Creating new columns from the original dataset for further combined analysis
+
+- Generating geographical columns from customer dialogs to analyze based on customer's shipping address (city, region, district, ward)
+
+- Conducting Predictive Analysis to predict future trend based on timeline from Tableau's Machine Learning, Prescriptive Analysis to determine which actions should be taken to achieve a goal or target (this may require more business numerical columns provided by the stakeholders to execute), Cognitive Analysis to learn what might happen if circumstances change and determine how we might handle these situations.
+
 ## Dataset:
 
 `Conversation:`
