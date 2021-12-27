@@ -40,7 +40,7 @@ Tracking customer & sales activites
 
 ## Room for enhancement:
 
-- Applying LODs (Level of Details) in Tableau to the analysis
+- Applying LODs (Level of Details) in Tableau to establish new variables to improve performance, readability and troubleshoot multiple steps in the analysis 
 
 - Creating new columns from the original dataset for further combined analysis
 
