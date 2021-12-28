@@ -40,7 +40,20 @@ Tracking customer & sales activites
 
 ## Room for enhancement:
 
-- Applying LODs (Level of Details) in Tableau to establish new variables to improve performance, readability and troubleshoot multiple steps in the analysis 
+- Applying LODs (Level of Details) in Tableau to establish new variables to improve performance, readability and troubleshoot multiple steps in the analysis:
+
++ How long to get the confirmation
+
++ Statistics for each customer
+
++ Performance of each Fan Page 
+
++ Address: which living area generates more online shopping activities
+
++ When confirming the transaction, what do customers usually talk to Sales team?
+
++ What do customers say to start their conversations, ask about products, ask for promotions?
+
 
 - Creating new columns from the original dataset for further combined analysis
 
@@ -345,7 +358,35 @@ df_Conversation_Entities.to_csv('C:\Programming\CustomerIntention\src\data\Conve
 
 # **`Data Modelling:`**
 
-The UNIQUE KEY statement is used to create indexes in tables. Indexes are used to retrieve data from the database more quickly than otherwise. The users cannot see the indexes in the database, namely in MySQL in this project case, they are just used to speed up searches/queries.
+The UNIQUE KEY statement is used to create indexes in tables. So, let's come to theories applied to our project case.
+
+1/ What is INDEX in SQL? Pros and cons of using INDEX?
+
+An index (INDEX) in SQL is a special table lookup that a database search engine can use to increase data retrieval times and performance.
+
+Simply, an entry is a pointer to each value that appears in the indexed table/column. Indexes in a Database have a meaningful similarity to entries in a book's Table of Contents.
+
+INDEX speeds up SELECT queries containing WHERE or ORDER entries, but it slows down data entry with UPDATE and INSERT commands. Indexes can be created or deleted without affecting the data.
+
+INDEX in SQL is a specialized lookup table to improve search speed and data query efficiency. An entry is a pointer to each value that appears in the indexed table/column. Indexces in a database have a meaningful similarity to entries in a book's Table of Contents.
+INDEX speeds up SELECT queries containing WHERE or ORDER entries, but it slows down data entry with UPDATE and INSERT commands. Indexes can be created or deleted without affecting the data.
+
+2/ What are PKs, FKs in our case?
+
+The FOREIGN KEY constraint is used to prevent actions that would destroy links between tables. A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the PRIMARY KEY in another table. The table with the foreign key is called the child table, and the table with the primary key is called the referenced or parent table.
+So in our case, the 4 below tables has their primary keys as ‘id’ but each has different Foreign keys pointing to the main sales dataframe’s columns, for examples:
+
+- conversation: ‘message’ pointing to the main sales dataframe’s column ‘Message’
+
+- conversation_information: ‘conversation_id’, ‘customer_count’, ‘sales_count’, ‘start_time’, ‘end_time’ pointing to the  main sales dataframe’s columns: PSID, CustomerCount, SalesCount, StartTime, EndTime
+
+- fan_page: ‘fan_page_name’ (pointing to the ‘FanpageName’), ‘fan_page_id’ (pointing to the ‘Fanpage’)
+
+- customer: ‘cus_name’ (pointing to the ‘CusName’), cus_id (pointing to the ‘PSID’)
+
+- conversation_intention: ‘conversation_id’ (pointing to the ‘Conversation’)
+
+- conversation_entities: ‘conversation_id’ (pointing to the ‘Conversation’)
 
 The benefit of analyzing the metadata is that we can clearly identify data inconsistences with our dataset.
 
