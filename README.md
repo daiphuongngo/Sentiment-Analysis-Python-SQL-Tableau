@@ -98,11 +98,15 @@ Tracking customer & sales activites
 
 ## Installling 
 
-Ubuntu 18.04 LTS
+Docker 
+
+MySQL 
+
+Database Management GUI (recommended TablePlus or Workbench)
 
 Virtual Enviroment:
 
-- jupyter lab
+- jupyter lab: https://jupyter.org/install
 
 - pandas
 
@@ -113,6 +117,41 @@ Virtual Enviroment:
 - seaborn
 
 - sqlachemy
+
++ Overview of SQLAlchemy’s Expression Language and ORM Queries: https://www.pythoncentral.io/overview-sqlalchemys-expression-language-orm-queries/
+
++ SQLAlchemy ORM Examples: https://www.pythoncentral.io/sqlalchemy-orm-examples/
+
++ Samples for further tasks: https://www.pythonsheets.com/notes/python-sqlalchemy.html
+
+Jupyter 
+
+Ubuntu 18.04 LTS
+
+## Flows for Python's Virtual Environment (VE):
+
+- Install Python
+
+Full steps: https://docs.python.org/3/tutorial/venv.html
+
+- Upgrade pip
+
+- Install Python VE
+
+- Create VE
+
+Creation of virtual environments: https://docs.python.org/3/library/venv.html
+
+- Activate VE
+
+- Added Virtual Environment to Jupyter Notebook: https://janakiev.com/blog/jupyter-virtual-envs/
+
+```
+ipython kernel install --user --name=YOUR_ENV_NAME
+```
+
+- Upgrade pip in VE
+
 
 ## Start Docker on Command Prompt
 
@@ -248,7 +287,7 @@ session = Session() # object
 
 # **`Data Engineering:`**
 
-## Creating 2 CSV files from dataset by Batch Processing
+## A. Creating CSV files from dataset by Batch Processing
 
 As I already have 4 other CSV files from my previous EDA notebooks, including Conversation, Coversation_Information, Customer and Fan Page, now I will generate 2 more CSV files: Intention and Entities from the Conversation filtered with only Customer as Sender.
 
@@ -355,6 +394,488 @@ df_Conversation_Intention.to_csv('C:\Programming\CustomerIntention\src\data\Conv
 ```
 df_Conversation_Entities.to_csv('C:\Programming\CustomerIntention\src\data\Conversation_Entities.csv', encoding='utf-8')
 ```
+
+## B. Insert all rows of each dataframe to database's tables in TablePlus
+
+New Method: inserting directly from data frames
+
+Inserting takes long time means that selecting or filtering will take less time, and in reverse, due to adding IDX for a column or different columns depending on purposes of saving data into relational database only or reading the data.
+
+We will insert dataframes in batches into session (relational database), then commit to finalize saving. If an error happen, that batch will be stopped inserting and still stay in the session and other batches will not be entered into the session as well if flush() is placed outside 'for loop'. Therefore, if flush() is placed inside the for loop, batches will be flushed into the session regarless any error might occur. But we have to set rollback() in the except case to delete any existing batches in the session causing an error.
+
+### Insert 'df_Conversation' dataframe into 'conversation' database
+
+```
+import time
+#import mysql.connector # as below mysql, not sqlite3 for this case
+import traceback
+from tqdm import tqdm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String,  create_engine # use sqlalchemy with connection string for mysql
+from sqlalchemy.orm import scoped_session, sessionmaker
+import unicodedata 
+
+Base = declarative_base()
+DBSession = scoped_session(sessionmaker()) # the scoped_session() function is provided which produces a thread-managed registry of Session objects. It is commonly used in web applications so that a single global variable can be used to safely represent transactional sessions with sets of objects, localized to a single thread.
+engine = None
+
+def init_sqlalchemy(dbname='mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention?charset=utf8mb4'):
+    global engine
+    engine = create_engine(dbname, echo=False)
+    DBSession.remove()
+    DBSession.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+
+def conversation_sqlalchemy_orm(n=100000): 
+    init_sqlalchemy()
+    t0 = time.time() 
+    error_i_list = [] # a new list containing i(s) of batch(es) causing errors
+    # Index column must match with ID column of df_Conversation  > indexing to the row 10th iso using loop with iterows (time consuming), but by using range(df.rows) > take out the 10th row
+    for i in tqdm(range(n)): # use tqdm to track progress 
+        try: # create custome, then add into session
+            conversation = Conversation()
+            conversation.order = df_Conversation['Order'].iloc[i]
+            conversation.sender = df_Conversation['Sender'].iloc[i]
+            conversation.message = unicodedata.normalize('NFC', str(df_Conversation['Message'].iloc[i]).encode("utf-8").decode("utf-8"))
+            conversation.fan_page_id = int(df_Conversation['Fanpage'].iloc[i]) # recreate the DB
+            conversation.cus_id = df_Conversation['PSID'].iloc[i] 
+            DBSession.add(conversation) # error might happen here or below
+            DBSession.commit()
+            
+            if i % 1000 == 0: # when i reachs 1000 rows, it will execute by flush() to insert the batch of 1000 rows into the session of the relational database
+                DBSession.flush() # should use try, except inside each 'for loop' to wrap i # error might happen here
+                DBSession.commit() #2nd attempt: place commit() here, then compare the progress # commit here to insert batch without affecting other batch(es) with errors
+                #text = unicodedata.normalize('NFC', text) # text: string type to fix error and replace all string texts into being wrapped by unicode 
+                
+        except Exception as er:
+            print('Error at index {}: '.format(i))
+            print(traceback.format_exc()) # print error(s)
+            print('-' * 20)
+            DBSession.rollback() # rollback here to delete all rows of a batch/batches causing errors to avoid being flooded or stuck with new batches coming in and then getting stuck as well
+            error_i_list.append(i) # append into array the index of batch(es) causing errors 
+   # DBSession.commit()  # 1st attempt: place commit() here, outside of 'for loop' # faster but will stop other batches coming in if errors happen
+    
+    print(
+        "Conversation's SQLAlchemy ORM: Total time for " + str(n) +
+        " records " + str(time.time() - t0) + " secs")
+
+    # A new function to select rows from conversations with a condition filtering by cus_id, joining with table 'customer' to return the cus_name
+#def join_tables():
+
+if __name__ == '__main__':
+    #conversation_sqlalchemy_orm(df_Conversation.shape[0]) # number of rows of df as I want --> customized function name
+    conversation_sqlalchemy_orm(df_Conversation.shape[0])
+```
+
+### Insert 'df_Conversation_Information' dataframe into 'conversation_information' database
+
+There will be an Error at index 260000 due to Duplicate entry '250001' for key 'IDX_conversation_id' so I have to delete this IDX of Conversation ID in the MYSQL by creating a new table for Conversation there.
+
+```
+import time
+#import mysql.connector # as below mysql, not sqlite3 for this case
+import traceback
+from tqdm import tqdm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String,  create_engine # use sqlalchemy with connection string for mysql
+from sqlalchemy.orm import scoped_session, sessionmaker
+
+Base = declarative_base()
+DBSession = scoped_session(sessionmaker()) # the scoped_session() function is provided which produces a thread-managed registry of Session objects. It is commonly used in web applications so that a single global variable can be used to safely represent transactional sessions with sets of objects, localized to a single thread.
+engine = None
+
+def init_sqlalchemy(dbname='mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention?charset=utf8mb4'):
+    global engine
+    engine = create_engine(dbname, echo=False)
+    DBSession.remove()
+    DBSession.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+
+def conversation_information_sqlalchemy_orm(n=100000): 
+    init_sqlalchemy()
+    t0 = time.time() 
+    error_i_list = [] # a new list containing i(s) of batch(es) causing errors
+    # Index column must match with ID column of df_Conversation  > indexing to the row 10th iso using loop with iterows (time consuming), but by using range(df.rows) > take out the 10th row
+    for i in tqdm(range(n)): # use tqdm to track progress 
+        try: # create custome, then add into session
+            conversation_information = Conversation_Information()
+            conversation_information.conversation_id = df_Conversation_Information['Conversation_ID'].iloc[i]
+            conversation_information.customer_count = df_Conversation_Information['CustomerCount'].iloc[i]
+            conversation_information.sales_count = df_Conversation_Information['SalesCount'].iloc[i]
+            conversation_information.start_time = df_Conversation_Information['StartTime'].iloc[i] # google, insert 1 row only for trial
+            conversation_information.end_time = df_Conversation_Information['EndTime'].iloc[i]
+            
+            DBSession.add(conversation_information) # error might happen here or below
+            if i % 10000 == 0: # when i reachs 1000 rows, it will execute by flush() to insert the batch of 1000 rows into the session of the relational database
+                DBSession.flush() # should use try, except inside each 'for loop' to wrap i # error might happen here
+                DBSession.commit() #2nd attempt: place commit() here, then compare the progress # commit here to insert batch without affecting other batch(es) with errors
+        except Exception as er:
+            print('Error at index {}: '.format(i))
+            print(traceback.format_exc()) # print error(s)
+            print('-' * 20)
+            DBSession.rollback() # rollback here to delete all rows of a batch/batches causing errors to avoid being flooded or stuck with new batches coming in and then getting stuck as well
+            error_i_list.append(i) # append into array the index of batch(es) causing errors 
+   # DBSession.commit()  # 1st attempt: place commit() here, outside of 'for loop' # faster but will stop other batches coming in if errors happen
+    
+    print(
+        "Conversation_Information's SQLAlchemy ORM: Total time for " + str(n) +
+        " records " + str(time.time() - t0) + " secs")
+
+    # A new function to select rows from conversations with a condition filtering by cus_id, joining with table 'customer' to return the cus_name
+#def join_tables():
+
+if __name__ == '__main__':
+    conversation_information_sqlalchemy_orm(df_Conversation_Information.shape[0]) # number of rows of df as I want --> customized function name
+```
+
+### Insert 'df_Fan_Page' dataframe into 'fan_page' database
+
+```
+import time
+#import mysql.connector # as below mysql, not sqlite3 for this case
+import traceback
+from tqdm import tqdm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String,  create_engine # use sqlalchemy with connection string for mysql
+from sqlalchemy.orm import scoped_session, sessionmaker
+import unicodedata 
+
+Base = declarative_base()
+DBSession = scoped_session(sessionmaker()) # the scoped_session() function is provided which produces a thread-managed registry of Session objects. It is commonly used in web applications so that a single global variable can be used to safely represent transactional sessions with sets of objects, localized to a single thread.
+engine = None
+
+def init_sqlalchemy(dbname='mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention?charset=utf8mb4'):
+    global engine
+    engine = create_engine(dbname, echo=False)
+    DBSession.remove()
+    DBSession.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    
+def fan_page_sqlalchemy_orm(n=100000): 
+    init_sqlalchemy()
+    t0 = time.time() 
+    error_i_list = [] # a new list containing i(s) of batch(es) causing errors
+    # Index column must match with ID column of df_Conversation  > indexing to the row 10th iso using loop with iterows (time consuming), but by using range(df.rows) > take out the 10th row
+    for i in tqdm(range(n)): # use tqdm to track progress 
+        try: # create custome, then add into session
+            fan_page = Fan_Page()
+            fan_page.fan_page_name = unicodedata.normalize('NFC', str(df_Fan_Page['FanpageName'].iloc[i]).encode("utf-8").decode("utf-8"))
+            fan_page.fan_page_id = df_Fan_Page['Fanpage'].iloc[i]
+            #fan_page.start_time = df_Fan_Page['StartTime'].iloc[i] # google, insert 1 row only for trial
+            #fan_page.end_time =  df_Fan_Page['EndTime'].iloc[i]
+            
+            DBSession.add(fan_page) # error might happen here or below
+            if i % 10000 == 0: # when i reachs 1000 rows, it will execute by flush() to insert the batch of 1000 rows into the session of the relational database
+                DBSession.flush() # should use try, except inside each 'for loop' to wrap i # error might happen here
+                DBSession.commit() #2nd attempt: place commit() here, then compare the progress # commit here to insert batch without affecting other batch(es) with errors
+        except Exception as er:
+            print('Error at index {}: '.format(i))
+            print(traceback.format_exc()) # print error(s)
+            print('-' * 20)
+            DBSession.rollback() # rollback here to delete all rows of a batch/batches causing errors to avoid being flooded or stuck with new batches coming in and then getting stuck as well
+            error_i_list.append(i) # append into array the index of batch(es) causing errors 
+   # DBSession.commit()  # 1st attempt: place commit() here, outside of 'for loop' # faster but will stop other batches coming in if errors happen
+    
+    print(
+        "Fan_Page's SQLAlchemy ORM: Total time for " + str(n) +
+        " records " + str(time.time() - t0) + " secs")
+
+    # A new function to select rows from conversations with a condition filtering by cus_id, joining with table 'customer' to return the cus_name
+#def join_tables():
+
+if __name__ == '__main__':
+    fan_page_sqlalchemy_orm(df_Fan_Page.shape[0]) # number of rows of df as I want --> customized function name
+```
+
+### Insert 'df_Customer' dataframe into 'customer' database
+
+```
+import time
+#import mysql.connector # as below mysql, not sqlite3 for this case
+import traceback
+from tqdm import tqdm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String,  create_engine # use sqlalchemy with connection string for mysql
+from sqlalchemy.orm import scoped_session, sessionmaker
+import unicodedata 
+
+Base = declarative_base()
+DBSession = scoped_session(sessionmaker()) # the scoped_session() function is provided which produces a thread-managed registry of Session objects. It is commonly used in web applications so that a single global variable can be used to safely represent transactional sessions with sets of objects, localized to a single thread.
+engine = None
+
+def init_sqlalchemy(dbname='mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention?charset=utf8mb4'):
+    global engine
+    engine = create_engine(dbname, echo=False)
+    DBSession.remove()
+    DBSession.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+
+def customer_sqlalchemy_orm(n=100000): 
+    init_sqlalchemy()
+    t0 = time.time() 
+    error_i_list = [] # a new list containing i(s) of batch(es) causing errors
+    # index column must match with ID column of df_Customer  > indexing to the row 10th iso using loop with iterows (time consuming), but by using range(df.rows) > take out the 10th row
+    for i in tqdm(range(n)): # use tqdm to track progress 
+        try: # create custome, then add into session
+            customer = Customer()
+            customer.cus_name = unicodedata.normalize('NFC', str(df_Customer['CusName'].iloc[i]).encode("utf-8").decode("utf-8")) # Use rows from dataframe to insert them into the relational databse, not insert the self-created rows
+            #customer.cus_name = df_Customer['CusName'].iloc[i]
+            customer.cus_id = df_Customer['PSID'].iloc[i]
+            DBSession.add(customer) # error might happen here or below
+            DBSession.commit()
+            if i % 10000 == 0: # when i reachs 10000 rows, it will execute by flush() to insert the batch of 1000 rows into the session of the relational database
+                DBSession.flush() # should use try, except inside each 'for loop' to wrap i # error might happen here
+                DBSession.commit() #2nd attempt: place commit() here, then compare the progress # commit here to insert batch without affecting other batch(es) with errors
+        except Exception as er:
+            print('Error at index {}: '.format(i))
+            print(traceback.format_exc()) # print error(s)
+            print('-' * 20)
+            DBSession.rollback() # rollback here to delete all rows of a batch/batches causing errors to avoid being flooded or stuck with new batches coming in and then getting stuck as well
+            error_i_list.append(i) # append into array the index of batch(es) causing errors 
+    #DBSession.commit()  # 1st attempt: place commit() here, outside of 'for loop' # faster but will stop other batches coming in if errors happen
+    
+    print(
+        "Customer's SQLAlchemy ORM: Total time for " + str(n) +
+        " records " + str(time.time() - t0) + " secs")
+
+    # A new function to select rows from conversations with a condition filtering by cus_id, joining with table 'customer' to return the cus_name
+#def join_tables():
+
+if __name__ == '__main__':
+    #customer_sqlalchemy_orm(df_Customer.shape[0]) # number of rows of df as I want --> customized function name
+    customer_sqlalchemy_orm(df_Customer.shape[0])
+```
+
+### Insert 'Conversation_Intention' dataframe into 'conversation_intention' database
+
+```
+import time
+#import mysql.connector # as below mysql, not sqlite3 for this case
+import traceback
+from tqdm import tqdm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String,  create_engine # use sqlalchemy with connection string for mysql
+from sqlalchemy.orm import scoped_session, sessionmaker
+import unicodedata 
+
+Base = declarative_base()
+DBSession = scoped_session(sessionmaker()) # the scoped_session() function is provided which produces a thread-managed registry of Session objects. It is commonly used in web applications so that a single global variable can be used to safely represent transactional sessions with sets of objects, localized to a single thread.
+engine = None
+
+def init_sqlalchemy(dbname='mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention?charset=utf8mb4'):
+    global engine
+    engine = create_engine(dbname, echo=False)
+    DBSession.remove()
+    DBSession.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    
+def conversation_intention_sqlalchemy_orm(n=100000): 
+    init_sqlalchemy()
+    t0 = time.time() 
+    error_i_list = [] # a new list containing i(s) of batch(es) causing errors
+    # Index column must match with ID column of df_Conversation  > indexing to the row 10th iso using loop with iterows (time consuming), but by using range(df.rows) > take out the 10th row
+    for i in tqdm(range(n)): # use tqdm to track progress 
+        try: # create custome, then add into session
+            conversation_intention = Conversation_Intention()
+            conversation_intention.reference_id = df_Conversation_Intention['Conversation_ID'].iloc[i]
+            conversation_intention.intention_label = unicodedata.normalize('NFC', str(df_Conversation_Intention['Intention_Label'].iloc[i]).encode("utf-8").decode("utf-8"))
+            conversation_intention.intention_score = df_Conversation_Intention['Fanpage'].iloc[i]
+            
+            DBSession.add(conversation_intention) # error might happen here or below
+            if i % 10000 == 0: # when i reachs 1000 rows, it will execute by flush() to insert the batch of 1000 rows into the session of the relational database
+                DBSession.flush() # should use try, except inside each 'for loop' to wrap i # error might happen here
+                DBSession.commit() #2nd attempt: place commit() here, then compare the progress # commit here to insert batch without affecting other batch(es) with errors
+        except Exception as er:
+            print('Error at index {}: '.format(i))
+            print(traceback.format_exc()) # print error(s)
+            print('-' * 20)
+            DBSession.rollback() # rollback here to delete all rows of a batch/batches causing errors to avoid being flooded or stuck with new batches coming in and then getting stuck as well
+            error_i_list.append(i) # append into array the index of batch(es) causing errors 
+   # DBSession.commit()  # 1st attempt: place commit() here, outside of 'for loop' # faster but will stop other batches coming in if errors happen
+    
+    print(
+        "Conversation_Intention's SQLAlchemy ORM: Total time for " + str(n) +
+        " records " + str(time.time() - t0) + " secs")
+
+    # A new function to select rows from conversations with a condition filtering by cus_id, joining with table 'customer' to return the cus_name
+#def join_tables():
+
+if __name__ == '__main__':
+    conversation_intention_sqlalchemy_orm(df_Conversation_Intention.shape[0]) # number of rows of df as I want --> customized function name
+```
+
+### Insert 'Conversation_Entities' dataframe into 'conversation_entities' database
+
+```
+import time
+#import mysql.connector # as below mysql, not sqlite3 for this case
+import traceback
+from tqdm import tqdm
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String,  create_engine # use sqlalchemy with connection string for mysql
+from sqlalchemy.orm import scoped_session, sessionmaker
+import unicodedata 
+
+Base = declarative_base()
+DBSession = scoped_session(sessionmaker()) # the scoped_session() function is provided which produces a thread-managed registry of Session objects. It is commonly used in web applications so that a single global variable can be used to safely represent transactional sessions with sets of objects, localized to a single thread.
+engine = None
+
+def init_sqlalchemy(dbname='mysql+mysqldb://phuongdaingo:0505@localhost:3306/customerintention?charset=utf8mb4'):
+    global engine
+    engine = create_engine(dbname, echo=False)
+    DBSession.remove()
+    DBSession.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    
+def conversation_entities_sqlalchemy_orm(n=100000): 
+    init_sqlalchemy()
+    t0 = time.time() 
+    error_i_list = [] # a new list containing i(s) of batch(es) causing errors
+    # Index column must match with ID column of df_Conversation  > indexing to the row 10th iso using loop with iterows (time consuming), but by using range(df.rows) > take out the 10th row
+    for i in tqdm(range(n)): # use tqdm to track progress 
+        try: # create custome, then add into session
+            conversation_entities = Conversation_Entities()
+            conversation_entities.reference_id = df_Conversation_Entities['Conversation_ID'].iloc[i]
+            conversation_entities.conversation_entity = unicodedata.normalize('NFC', str(df_Conversation_Entities['Conversation_Entity'].iloc[i]).encode("utf-8").decode("utf-8"))
+            conversation_entities.conversation_entity_score = df_Conversation_Entities['Conversation_Entity_Score'].iloc[i]
+            conversation_entities.conversation_entity_word = unicodedata.normalize('NFC', str(df_Conversation_Entities['Conversation_Entity_word'].iloc[i]).encode("utf-8").decode("utf-8"))
+
+            
+            DBSession.add(conversation_entities) # error might happen here or below
+            if i % 10000 == 0: # when i reachs 1000 rows, it will execute by flush() to insert the batch of 1000 rows into the session of the relational database
+                DBSession.flush() # should use try, except inside each 'for loop' to wrap i # error might happen here
+                DBSession.commit() #2nd attempt: place commit() here, then compare the progress # commit here to insert batch without affecting other batch(es) with errors
+        except Exception as er:
+            print('Error at index {}: '.format(i))
+            print(traceback.format_exc()) # print error(s)
+            print('-' * 20)
+            DBSession.rollback() # rollback here to delete all rows of a batch/batches causing errors to avoid being flooded or stuck with new batches coming in and then getting stuck as well
+            error_i_list.append(i) # append into array the index of batch(es) causing errors 
+   # DBSession.commit()  # 1st attempt: place commit() here, outside of 'for loop' # faster but will stop other batches coming in if errors happen
+    
+    print(
+        "Conversation_Entities's SQLAlchemy ORM: Total time for " + str(n) +
+        " records " + str(time.time() - t0) + " secs")
+
+    # A new function to select rows from conversations with a condition filtering by cus_id, joining with table 'customer' to return the cus_name
+#def join_tables():
+
+if __name__ == '__main__':
+    conversation_entities_sqlalchemy_orm(df_Conversation_Entities.shape[0]) # number of rows of df as I want --> customized function name
+```
+
+#### Select, Filter - Using query on session with joining method
+
+Reference: 
+
+https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_orm_working_with_joins.htm
+
+https://docs.sqlalchemy.org/en/14/orm/query.html
+
+Filter the Conversation
+stmt = session.query(Conversation).filter(Conversation.order == 0).all() #first(): get the first or all(): get all
+for val in stmt:
+    print(val.message)
+    print(val.order)
+    print(val.sender)
+stmt_Conversation = session.query(Conversation).join(Fan_Page.fan_page_id).filter(Conversation.order == 0).all() #first(): get the first or all(): get all
+for val in stmt_Conversation:
+    print(val.message)
+    print(val.order)
+    print(val.sender)
+Filter the Conversation_Information
+stmt = session.query(Conversation_Information).filter(Conversation_Information.conversation_id == 0).first() #first(): get the first or all(): get all
+#for val in stmt:
+    #print(val.conversation_id)
+    #print(val.customer_count)
+    #print(val.sales_count)
+print(stmt.conversation_id)
+print(stmt.customer_count)
+print(stmt.sales_count)
+Reference: https://stackoverflow.com/questions/51451768/sqlalchemy-querying-with-datetime-columns-to-filter-by-month-day-year
+
+stmt = session.query(Conversation_Information).filter(Conversation_Information.start_time == '2019-11-03'
+                                                     ).all() #first(): get the first or all(): get all
+#for val in stmt:
+    #print(val.conversation_id)
+    #print(val.customer_count)
+    #print(val.sales_count)
+print(stmt.conversation_id)
+print(stmt.customer_count)
+print(stmt.sales_count)
+stmt_Conversation_Info = session.query(Conversation_Information).join(Conversation.id).limit(5).filter(Conversation_Information.conversation_id == 0).all() #first(): get the first or all(): get all
+for val in stmt_Conversation_Info:
+    print(val.conversation_id)
+    print(val.customer_count)
+    print(val.sales_count)
+Filter the Customer
+stmt = session.query(Customer).filter(Customer.cus_name == 'Simon').first() #first(): get the first or all(): get all
+print(stmt.cus_id)
+print(stmt.cus_name)
+print(stmt.id)
+def filter_Customer_name(name)
+    stmt = session.query(Customer).filter(Customer.cus_name == name).first() #first(): get the first or all(): get all
+    for val in stmt:
+        print(val.cus_id)
+        print(val.cus_name)
+        print(val.id)
+filter_Customer_name('Tòng thị tươi thuý')
+stmt_Customer = session.query(Customer).join(Conversation.id).filter(Customer.cus_name == 'Simon').first() #first(): get the first or all(): get all
+for val in stmt_Customer:
+    print(val.cus_id)
+    print(val.cus_name)
+    print(val.message)
+Filter the Fan_Page
+stmt = session.query(Fan_Page).filter(Fan_Page.fan_page_name == 'Simon').all() #first(): get the first or all(): get all
+for val in stmt:
+    print(val.fan_page_name)
+    print(val.fan_page_id)
+def filter_Fan_Page_name(name)    
+    stmt = session.query(Fan_Page).filter(Fan_Page.fan_page_name == name).all() #first(): get the first or all(): get all
+    for val in stmt:
+        print(val.fan_page_name)
+        print(val.fan_page_id)
+filter_Fan_Page_name('Hân Beauty')
+stmt_Fan_Page = session.query(Fan_Page).filter(Fan_Page.fan_page_name == 'Simon').all() #first(): get the first or all(): get all
+for val in stmt_Fan_Page:
+    print(val.fan_page_name)
+    print(val.fan_page_id)
+    print(val.message)
+G. Select, Filter with data directly created in the MySQL Relational Database
+Filter by query Conversation
+stmt = session.query(Conversation).filter(Conversation.order == 0).all() #first(): get the first or all(): get all
+for val in stmt:
+    print(val.message)
+    print(val.order)
+    print(val.sender)
+Filter by query Conversation_Information
+stmt = session.query(Conversation_Information).filter(Conversation_Information.conversation_id == 0).first() #first(): get the first or all(): get all
+#for val in stmt:
+    #print(val.conversation_id)
+    #print(val.customer_count)
+    #print(val.sales_count)
+print(stmt.conversation_id)
+print(stmt.customer_count)
+print(stmt.sales_count)
+Filter by query Customer
+stmt = session.query(Customer).filter(Customer.cus_name == 'Frank').first() #first(): get the first or all(): get all
+print(stmt.cus_id)
+print(stmt.cus_name)
+print(stmt.id)
+stmt = session.query(Customer).filter(Customer.cus_id % 2 == 0).all()
+for val in stmt:
+    print(val.cus_name)
+Filter by query Fan_Page
+stmt = session.query(Fan_Page).filter(Fan_Page.fan_page_name == 'ABC').all() #first(): get the first or all(): get all
+for val in stmt:
+    print(val.fan_page_name)
+    print(val.fan_page_id)
 
 # **`Data Modelling:`**
 
