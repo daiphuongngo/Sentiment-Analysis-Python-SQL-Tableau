@@ -287,6 +287,8 @@ session = Session() # object
 
 # **`Data Engineering:`**
 
+I splitted the usage methods into 2 cases A and B. A would show how to creating CSV files and have those files imported to the MySQL Database or Tableau/Power BI for further analysis. B would demonstrate how to insert the dataframes containing the API-generated dataset into the MySQL Database directly. For further tasks relating managing the API of making calls and receiving responses. The Data Engineering team would help to run the Case B's codes I wrote below to input data into the MySQL as the API Server is based in Vietnam. So it would be not time-efficient to make calls from Canada and getting responses for millions of rows from Vietnam travelling half of the Earth through Pacific Ocean to arrive in Toronto. My coding lines of both cases are genuine and were examined.
+
 ## A. Creating CSV files from dataset by Batch Processing
 
 As I already have 4 other CSV files from my previous EDA notebooks, including Conversation, Coversation_Information, Customer and Fan Page, now I will generate 2 more CSV files: Intention and Entities from the Conversation filtered with only Customer as Sender.
