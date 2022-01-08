@@ -287,7 +287,7 @@ session = Session() # object
 
 # **`Data Engineering:`**
 
-I splitted the usage methods into 2 cases A and B. A would show how to creating CSV files and have those files imported to the MySQL Database or Tableau/Power BI for further analysis. B would demonstrate how to insert the dataframes containing the API-generated dataset into the MySQL Database directly. For further tasks relating managing the API of making calls and receiving responses. The Data Engineering team would help to run the Case B's codes I wrote below to input data into the MySQL as the API Server is based in Vietnam. So it would be not time-efficient to make calls from Canada and getting responses for millions of rows from Vietnam travelling half of the Earth through Pacific Ocean to arrive in Toronto. My coding lines of both cases are genuine and were examined.
+I splitted the usage methods into 2 cases A and B. A would show how to creating CSV files and have those files imported to the MySQL Database or Tableau/Power BI for further analysis. B would demonstrate how to insert the dataframes containing the API-generated dataset into the MySQL Database directly. For further tasks relating managing the API of making calls and receiving responses. The Data Engineering team in Vietnam would help to run the Case B's codes I wrote below to input data into the MySQL as the API Server is based in Vietnam. So it would be not time-efficient to make calls from Canada and getting responses for millions of rows from Vietnam travelling half of the Earth through Pacific Ocean to arrive in Toronto. My coding lines of both cases are genuine and were examined.
 
 ## A. Creating CSV files from dataset by Batch Processing
 
@@ -780,18 +780,24 @@ https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_orm_working_with_joins.htm
 
 https://docs.sqlalchemy.org/en/14/orm/query.html
 
-Filter the Conversation
+##### Filter the Conversation
+```
 stmt = session.query(Conversation).filter(Conversation.order == 0).all() #first(): get the first or all(): get all
 for val in stmt:
     print(val.message)
     print(val.order)
     print(val.sender)
+```
+```
 stmt_Conversation = session.query(Conversation).join(Fan_Page.fan_page_id).filter(Conversation.order == 0).all() #first(): get the first or all(): get all
 for val in stmt_Conversation:
     print(val.message)
     print(val.order)
     print(val.sender)
-Filter the Conversation_Information
+```
+
+##### Filter the Conversation_Information
+```
 stmt = session.query(Conversation_Information).filter(Conversation_Information.conversation_id == 0).first() #first(): get the first or all(): get all
 #for val in stmt:
     #print(val.conversation_id)
@@ -800,8 +806,11 @@ stmt = session.query(Conversation_Information).filter(Conversation_Information.c
 print(stmt.conversation_id)
 print(stmt.customer_count)
 print(stmt.sales_count)
+```
+
 Reference: https://stackoverflow.com/questions/51451768/sqlalchemy-querying-with-datetime-columns-to-filter-by-month-day-year
 
+```
 stmt = session.query(Conversation_Information).filter(Conversation_Information.start_time == '2019-11-03'
                                                      ).all() #first(): get the first or all(): get all
 #for val in stmt:
@@ -811,12 +820,18 @@ stmt = session.query(Conversation_Information).filter(Conversation_Information.s
 print(stmt.conversation_id)
 print(stmt.customer_count)
 print(stmt.sales_count)
+```
+```
 stmt_Conversation_Info = session.query(Conversation_Information).join(Conversation.id).limit(5).filter(Conversation_Information.conversation_id == 0).all() #first(): get the first or all(): get all
 for val in stmt_Conversation_Info:
     print(val.conversation_id)
     print(val.customer_count)
     print(val.sales_count)
-Filter the Customer
+```
+ 
+##### Filter the Customer
+
+```
 stmt = session.query(Customer).filter(Customer.cus_name == 'Simon').first() #first(): get the first or all(): get all
 print(stmt.cus_id)
 print(stmt.cus_name)
@@ -827,13 +842,18 @@ def filter_Customer_name(name)
         print(val.cus_id)
         print(val.cus_name)
         print(val.id)
-filter_Customer_name('Tòng thị tươi thuý')
+filter_Customer_name('TTTT') # this should be a certain customer name.
+```
+```
 stmt_Customer = session.query(Customer).join(Conversation.id).filter(Customer.cus_name == 'Simon').first() #first(): get the first or all(): get all
 for val in stmt_Customer:
     print(val.cus_id)
     print(val.cus_name)
     print(val.message)
-Filter the Fan_Page
+```
+
+##### Filter the Fan_Page
+```
 stmt = session.query(Fan_Page).filter(Fan_Page.fan_page_name == 'Simon').all() #first(): get the first or all(): get all
 for val in stmt:
     print(val.fan_page_name)
@@ -843,20 +863,29 @@ def filter_Fan_Page_name(name)
     for val in stmt:
         print(val.fan_page_name)
         print(val.fan_page_id)
-filter_Fan_Page_name('Hân Beauty')
+filter_Fan_Page_name('HB') # this should be a certain fan page name
+```
+```
 stmt_Fan_Page = session.query(Fan_Page).filter(Fan_Page.fan_page_name == 'Simon').all() #first(): get the first or all(): get all
 for val in stmt_Fan_Page:
     print(val.fan_page_name)
     print(val.fan_page_id)
     print(val.message)
-G. Select, Filter with data directly created in the MySQL Relational Database
-Filter by query Conversation
+```
+
+#### Select, Filter with data directly created in the MySQL Relational Database
+
+##### Filter by query Conversation
+```
 stmt = session.query(Conversation).filter(Conversation.order == 0).all() #first(): get the first or all(): get all
 for val in stmt:
     print(val.message)
     print(val.order)
     print(val.sender)
-Filter by query Conversation_Information
+```
+
+##### Filter by query Conversation_Information
+```
 stmt = session.query(Conversation_Information).filter(Conversation_Information.conversation_id == 0).first() #first(): get the first or all(): get all
 #for val in stmt:
     #print(val.conversation_id)
@@ -865,19 +894,28 @@ stmt = session.query(Conversation_Information).filter(Conversation_Information.c
 print(stmt.conversation_id)
 print(stmt.customer_count)
 print(stmt.sales_count)
-Filter by query Customer
+```
+
+#####  Filter by query Customer
+```
 stmt = session.query(Customer).filter(Customer.cus_name == 'Frank').first() #first(): get the first or all(): get all
 print(stmt.cus_id)
 print(stmt.cus_name)
 print(stmt.id)
+```
+```
 stmt = session.query(Customer).filter(Customer.cus_id % 2 == 0).all()
 for val in stmt:
     print(val.cus_name)
-Filter by query Fan_Page
+```
+
+##### Filter by query Fan_Page
+```
 stmt = session.query(Fan_Page).filter(Fan_Page.fan_page_name == 'ABC').all() #first(): get the first or all(): get all
 for val in stmt:
     print(val.fan_page_name)
     print(val.fan_page_id)
+```
 
 # **`Data Modelling:`**
 
