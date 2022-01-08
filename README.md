@@ -1211,6 +1211,14 @@ ORDER BY COUNT(cui.intention_label) DESC;
 
 ## Visualization on Tableau:
 
+Notes: 
+
+Sum – Returns the sum of the numbers in a measure. Null values are ignored.
+
+Count – Returns the number of rows in a measure or a dimension. When applied to a dimension, Tableau creates a new temporary column that is a measure because the result of a count is a number. You can count numbers, dates, Booleans, and strings. Null values are ignored in all cases.
+
+Count Distinct – Returns the number of unique values in a measure or dimension. When applied to a dimension, Tableau creates a new temporary column that is a measure because the result of a count is a number. You can count numbers, dates, Booleans, and strings. Null values are ignored in all cases.
+
 ### 1/ Fan Page:
 
 https://public.tableau.com/app/profile/dai.phuong.ngo/viz/SentimentAnalysis-DashboardFanPages/DashboardFanPage
