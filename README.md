@@ -24,7 +24,7 @@ Building a system for business insights & analysis using Natural Language Proces
 
 ## Courtesy:
 
-This projects was conducted by me during my last remote internship for the Center of Talent in AI (CoTAI), Sai Gon, Vietnam from Toronto, Canada. Hereby, I thank Mr. Hung Ngo - Founder of CoTAI and Mr. Huy Le - my supervisor there who had provided support, vision, guidance through this project. The private content of this dataset had been hidden and transformed to avoid data leakage so I could upload it to my e-portoflio as a proof of work experience. This project can also be upgraded, expanded as per my noted Room for Enhancemetn below.
+This project was conducted by me during my last remote internship for the Center of Talent in AI (CoTAI), Sai Gon, Vietnam from Toronto, Canada. Hereby, I thank Mr. Hung Ngo - Founder of CoTAI and Mr. Huy Le - my supervisor there who had provided support, vision, guidance through this project. The private content of this dataset had been hidden and transformed to avoid data leakage so I could upload it to my e-portoflio as a proof of work experience. This project can also be upgraded, expanded as per my noted Room for Enhancement below.
 
 ## Targets & Achievements:
 
@@ -42,7 +42,7 @@ Tracking customer & sales activites
 
 - Identifying potential & complaining customers
 
-## Room for enhancement:
+## Room for Enhancement:
 
 - Applying LODs (Level of Details) in Tableau to establish new variables to improve performance, readability and troubleshoot multiple steps in the analysis:
 
