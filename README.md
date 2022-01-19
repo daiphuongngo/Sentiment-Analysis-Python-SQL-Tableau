@@ -22,6 +22,10 @@ Building a system for business insights & analysis using Natural Language Proces
 
 -	Tableau (visualize refined datasets for insights of customer sentiment), Docker (run & manage applications), 
 
+## Courtesy:
+
+This projects was conducted by me during my last remote internship for the Center of Talent in AI (CoTAI), Sai Gon, Vietnam from Toronto, Canada. Hereby, I thank Mr. Hung Ngo - Founder of CoTAI and Mr. Huy Le - my supervisor there who had provided support, vision, guidance through this project. The private content of this dataset had been hidden and transformed to avoid data leakage so I could upload it to my e-portoflio as a proof of work experience. This project can also be upgraded, expanded as per my noted Room for Enhancemetn below.
+
 ## Targets & Achievements:
 
 An online retail business should be able to use their vast amounts of data and information in such a way that impacts the business, including:
