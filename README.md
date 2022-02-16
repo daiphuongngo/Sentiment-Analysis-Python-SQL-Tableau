@@ -218,6 +218,14 @@ pip install flask sqlalchemy flask-sqlalchemy
 ```
 ![image](https://user-images.githubusercontent.com/70437668/154194504-b2162d99-a644-4256-8854-a2d43a64886b.png)
 
+# **`Training on API:`**
+
+![Book Manager for HTML on Visual Code](https://user-images.githubusercontent.com/70437668/154200252-53890237-19d7-497e-ba18-351a883f44f5.jpg)
+
+![Demo of making request to API and return intent's labels and scores for each reference id](https://user-images.githubusercontent.com/70437668/154200265-e00ad48a-0aef-4472-bb91-13779e10b242.jpg)
+
+![Display My new Flask app on HTML web](https://user-images.githubusercontent.com/70437668/154200269-1729b2ac-947c-44b1-87a1-f3e2169268d1.jpg)
+
 # **`Database Administering:`**
 
 ## Design & map SQL Alchemy's 6 tables with MySQL relation database 
