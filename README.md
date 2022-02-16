@@ -200,6 +200,13 @@ pip install mysqlclient
 ```
 
 VR Flask:
+
+- Flask, which I used to route web traffic through HTTP requests to specific functions in the code base
+
+- SQLAlchemy, which I used to make the interaction between Python and our database smoother.
+
+- Flask-SQLAlchemy, which we'll use to make the interaction between Flask and SQLAlchemy smoother.
+
 ```
 pip install flask sqlalchemy flask-sqlalchemy
 ```
