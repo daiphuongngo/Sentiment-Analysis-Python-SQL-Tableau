@@ -223,7 +223,16 @@ pip install flask sqlalchemy flask-sqlalchemy
 ## Create a Book Manager file for HTML on Visual Code
 
 ```
+from flask import Flask
 
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "My flask app"
+  
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)
 ```
 ![Book Manager for HTML on Visual Code](https://user-images.githubusercontent.com/70437668/154200252-53890237-19d7-497e-ba18-351a883f44f5.jpg)
 
