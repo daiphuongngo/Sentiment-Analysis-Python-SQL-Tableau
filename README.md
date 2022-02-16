@@ -238,9 +238,20 @@ if __name__ == "__main__":
 
 ## Make a demo request to API
 
-I provided a quest and receive responses in the form of intent's labels and scores for each reference id. This would be further conducted in my Jupyter's file in Python.
+In this demo (translated from Vietnamese into English), I will request with 2 reference IDs and 2 text lines so the AI can automatically conduct its already-built Natural Language Processing model to reponse with results of what could be the best possible intent that it can analyze and predict from customer's given text conversation.
 
+The Body shows in JSON type that the label "Providing information - shipment" has the highest score at 0.974 so this intent is the most accurate result for the reference ID = 1. This step will be further emphasized in Python to generate 500 requests and map 500 responses per batch.
 ```
+[
+    {
+        "reference_id": 1,
+        "text": "I would like to buy the product delivered to 'address', my phone number is ...."
+    },
+    {
+        "reference_id": 2,
+        "text": "I would like to buy the product"
+    }
+]
 
 ```
 
