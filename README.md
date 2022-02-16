@@ -54,17 +54,17 @@ Tracking customer & sales activites
 
 - Applying LODs (Level of Details) in Tableau to establish new variables to improve performance, readability and troubleshoot multiple steps in the analysis:
 
-+ How long to get the confirmation
+--> How long to get the confirmation
 
-+ Statistics for each customer
+--> Statistics for each customer
 
-+ Performance of each Fan Page 
+--> Performance of each Fan Page 
 
-+ Address: which living area generates more online shopping activities
+--> Address: which living area generates more online shopping activities
 
-+ When confirming the transaction, what do customers usually talk to Sales team?
+--> When confirming the transaction, what do customers usually talk to Sales team?
 
-+ What do customers say to start their conversations, ask about products, ask for promotions?
+--> What do customers say to start their conversations, ask about products, ask for promotions?
 
 
 - Creating new columns from the original dataset for further combined analysis
@@ -220,9 +220,24 @@ pip install flask sqlalchemy flask-sqlalchemy
 
 # **`Training on API:`**
 
+## Create a Book Manager file for HTML on Visual Code
+
+```
+
+```
 ![Book Manager for HTML on Visual Code](https://user-images.githubusercontent.com/70437668/154200252-53890237-19d7-497e-ba18-351a883f44f5.jpg)
 
+## Make a demo request to API
+
+I provided a quest and receive responses in the form of intent's labels and scores for each reference id. This would be further conducted in my Jupyter's file in Python.
+
+```
+
+```
+
 ![Demo of making request to API and return intent's labels and scores for each reference id](https://user-images.githubusercontent.com/70437668/154200265-e00ad48a-0aef-4472-bb91-13779e10b242.jpg)
+
+## Display my newly created app on the web:
 
 ![Display My new Flask app on HTML web](https://user-images.githubusercontent.com/70437668/154200269-1729b2ac-947c-44b1-87a1-f3e2169268d1.jpg)
 
