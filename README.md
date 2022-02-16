@@ -255,7 +255,7 @@ The Body shows in JSON type that the label "Providing information - shipment" ha
 
 ```
 
-![Demo of making request to API and return intent's labels and scores for each reference id](https://user-images.githubusercontent.com/70437668/154200265-e00ad48a-0aef-4472-bb91-13779e10b242.jpg)
+![Demo of making request to API and return intent's labels and scores for each reference id](https://user-images.githubusercontent.com/70437668/154203379-054d74dc-72a5-422a-81e4-59e3b194119a.jpg)
 
 ## Display my newly created app on the web:
 
