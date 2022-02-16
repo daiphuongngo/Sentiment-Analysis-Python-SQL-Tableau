@@ -24,6 +24,12 @@ Building a system for business insights & analysis using Natural Language Proces
 
 -	Docker (run & manage applications), 
 
+- Flask (route web traffic through HTTP requests to specific functions in the code base),
+
+- SQLAlchemy (make the interaction between Python and our database smoother),
+
+- Flask-SQLAlchemy (make the interaction between Flask and SQLAlchemy smoother).
+
 ## Courtesy:
 
 This project was conducted by me during my last remote internship for the Center of Talent in AI (CoTAI), Sai Gon, Vietnam from Toronto, Canada. Hereby, I thank Mr. Hung Ngo - Founder of CoTAI and Mr. Huy Le - my supervisor there who had provided support, vision, guidance through this project. The private content of this dataset had been hidden and transformed to avoid data leakage so I could upload it to my e-portoflio as a proof of work experience. This project can also be upgraded, expanded as per my noted Room for Enhancement below.
@@ -205,11 +211,12 @@ VR Flask:
 
 - SQLAlchemy, which I used to make the interaction between Python and our database smoother.
 
-- Flask-SQLAlchemy, which we'll use to make the interaction between Flask and SQLAlchemy smoother.
+- Flask-SQLAlchemy, which I used to make the interaction between Flask and SQLAlchemy smoother.
 
 ```
 pip install flask sqlalchemy flask-sqlalchemy
 ```
+![image](https://user-images.githubusercontent.com/70437668/154194504-b2162d99-a644-4256-8854-a2d43a64886b.png)
 
 # **`Database Administering:`**
 
