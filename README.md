@@ -18,7 +18,9 @@ Building a system for business insights & analysis using Natural Language Proces
 
 -	Python (conduct Exploratory Data Analysis to refine datasets, use SQLAlchemy as Object Relation Mapper on Virtual Environment to read, insert CSV files, translate Python classes, load large data to created tables on the relational database, handle large-scale datasets efficiently by Batch Processing) 
 
--	TablePlus (create & design tables in this MySQL Relational Database for receiving datasets from Python & execute SQL queries),
+-	MySQL TablePlus (create & design tables in this MySQL Relational Database for receiving datasets from Python & execute SQL queries),
+
+-   Azure (store datasets, conduct descriptive analysis in SQL queries, examine diagnostics analysis and predictive analysis),
 
 -	Tableau (visualize refined datasets for insights of customer sentiment), 
 
