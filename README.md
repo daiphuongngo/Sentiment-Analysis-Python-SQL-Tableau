@@ -20,8 +20,6 @@ Building a system for business insights & analysis using Natural Language Proces
 
 -	MySQL TablePlus (create & design tables in this MySQL Relational Database for receiving datasets from Python & execute SQL queries),
 
--   Azure (store datasets, conduct descriptive analysis in SQL queries, examine diagnostics analysis and predictive analysis),
-
 -	Tableau (visualize refined datasets for insights of customer sentiment), 
 
 -	Docker (run & manage applications), 
