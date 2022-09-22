@@ -16,11 +16,11 @@ Building a system for business insights & analysis using Natural Language Proces
 
 -	SQL (extract, organize data from customer conversations on Facebook Fan Page), 
 
--	Python (conduct Exploratory Data Analysis to refine datasets, use SQLAlchemy as Object Relation Mapper on Virtual Environment to read, insert CSV files, translate Python classes, load large data to created tables on the relational database, handle large-scale datasets efficiently by Batch Processing) 
+-	Python (conduct Exploratory Data Analysis to refine, pre-process datasets, use SQLAlchemy as Object Relation Mapper on Virtual Environment to request data from API server available on Postman, read, insert CSV files, translate Python classes, load large data to created tables on the relational database, handle large-scale datasets efficiently by Batch Processing) 
 
--	MySQL TablePlus (create & design tables in this MySQL Relational Database for receiving datasets from Python & execute SQL queries),
+-	MySQL-like TablePlus (create & design tables in this MySQL-like Relational Database for receiving datasets from Python & execute SQL queries),
 
--	Tableau (visualize refined datasets for insights of customer sentiment), 
+-	Tableau (visualize refined datasets for insights of customer sentiments, trends, patterns of customer behaviors, buying motives, etc,...), 
 
 -	Docker (run & manage applications), 
 
