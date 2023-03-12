@@ -1,4 +1,4 @@
-# Sentiment Analysis for online products and their fan pages
+# Sentiment Analysis (demo) for online products and their fan pages
 
 ## Category:
 
